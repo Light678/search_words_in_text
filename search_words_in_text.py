@@ -1,22 +1,47 @@
 import re
 
 
-def search_words(text, words_to_find):
-    # Compile the list of search words into a regular expression
-    pattern = re.compile("|".join(words_to_find))
+def find_words(text, word_to_find):
+    # compile the regular expression pattern for the word
+    pattern = re.compile(word_to_find)
 
-    # Search for matches in the text and print them out
-    matches = pattern.findall(text)
-    if matches:
-        print("The following words were found:")
-        for word in matches:
-            print(word)
+    # search the text for the word
+    match = pattern.search(text)
+
+    # return the match if found, or None otherwise
+    if match:
+        return match.group()
     else:
-        print("No matches found.")
+        return None
 
 
-text = "insert Text"  # insert the Text
-words_to_find = ["insert"]  # Insert words you want to find
+def find_syllables(text, syllable_to_find):
+    # compile the regular expression pattern for the syllable
+    pattern = re.compile(r"\b\w*" + syllable_to_find + r"\w*\b")
 
-search_words(text, words_to_find)
+    # search the text for the syllable
+    matches = pattern.findall(text)
 
+    # return the matches if found, or None otherwise
+    if matches:
+        return matches
+    else:
+        return None
+
+
+# sample text
+text = "Insert Text"
+
+# search for the word(s)
+word = find_words(text, "Insert Word")
+if word:
+    print(f"Word found: {word}")
+else:
+    print("Word not found.")
+
+# search for the syllable(s)
+syllables = find_syllables(text, "Insert syllable/letters")
+if syllables:
+    print(f"Syllables found: {syllables}")
+else:
+    print("Syllables not found.")
